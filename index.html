@@ -1,1 +1,106 @@
-<h2>Ceshi</h2>
+<!DOCTYPE html>
+<html style="background-color: #ebebeb;">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
+<link rel="stylesheet" href="./css/index.css">
+
+<script>
+  var p = navigator.platform;
+  var systerm = { win: p.indexOf('Win') === 0, mac: p.indexOf('Mac') === 0 }
+  if (!(systerm.win || systerm.mac)) {
+    let dom = document.createElement('script')
+    dom.src = 'https://unpkg.com/vconsole@latest/dist/vconsole.min.js';
+    dom.onload = function () {
+      new window.VConsole();
+    }
+    document.head.appendChild(dom)
+  }
+</script>
+<script defer src="./index.js"></script>
+
+<body>
+  <p class="title">Engagelab WebPush 集成demo及示例</p>
+  </p>
+  <p>请先在<a href="https://www.engagelab.com/" target="_blank">https://www.engagelab.com</a>官网注册帐号，创建应用后在 [集成设置]
+    页面填写并保存当前域名，然后在此页面测试推送功能！</p>
+  <div class="title2">集成必要参数</div>
+  <div>
+    <p class="data-warp"><span class="data-title">AppKey</span><input id="appkey" type="text"
+        value=""><span class="dsc">在 应用信息
+        页面可以得到（可更换并在此页面测试）</span></p>
+    <p class="data-warp"><span class="data-title">usr_str</span><input id="userstr" type="text" value=""><span
+        class="dsc">用户唯一标识，由开发者生成。SDK初始化时会根据该标识生成对应的RegistrationID</span>
+    </p>
+  </div>
+  <div>
+    <p>推送消息展示：</p>
+    <div id="msgshow" class="info-show code"></div>
+    <input id="clearnmsg" type="button" value="清除消息数据"></input>
+  </div>
+  <div class="title2">SDK API 示例 <input style="margin-left: 20px;" id="clearnapi" type="button" value="清除数据"></input>
+  </div>
+  <div class="api-warp">
+    <p class="data-warp"><input id="init" type="button" value="初始化"></input><span
+        class="dsc">sdk加载完成后，使用全局对像MTpushInterface调用初始化方法init，初始化SDK。</span></p>
+    <div>
+      <p>初始化时信息展示：</p>
+      <div id="init-1" class="info-show code"></div>
+    </div>
+    <div>
+      <p>初始化成功后信息展示：</p>
+      <div id="init-2" class="info-show code"></div>
+    </div>
+  </div>
+  <div class="api-warp">
+    <p class="data-warp"><input id="checkserver" type="button" value="检查推送服务状态"></input><span
+        class="dsc">sdk初始化后，可以判断在线推送服务状态是否停止</span></p>
+    <div>
+      <p>服务状态：</p>
+      <div id="mtserver" class="info-show code"></div>
+    </div>
+  </div>
+  <div class="api-warp">
+    <p class="data-warp"><input id="getrid" type="button" value="获取RegistrationID"></input><span
+        class="dsc">sdk初始化后，可以通过该API获取RegistrationID</span></p>
+    <div>
+      <p>RegistrationID：</p>
+      <div id="ridshow" class="info-show code"></div>
+    </div>
+  </div>
+  <div class="api-warp">
+    <p class="data-warp"><input id="check" type="button" value="检查浏览器通知权限"></input></p>
+    <div>
+      <p>浏览器通知权限：</p>
+      <div id="permission" class="info-show code"></div>
+    </div>
+  </div>
+  <div class="api-warp">
+    <p class="data-warp"><input id="subscribe" type="button" value="手动订阅"></input><span class="dsc">只有
+        通知授权配置 为自定义时，且用户通知权限为初始值时可用。</span></p>
+  </div>
+  <div class="api-warp">
+    <p class="data-warp"><input id="unSubscribe" type="button" value="停止推送"></input><span
+        class="dsc">调用该接口后，后端不会为该用户推送消息除非重新订阅。</span></p>
+  </div>
+  <div class="warp">
+    <div>通知内容示例：<span class="dsc">(本地通知权限-> <span id="loca-show">--</span> )</span></div>
+    <div class="data">{"body":"我是通知内容","image":"/images/2.png","silent":true}</div>
+    <div style="padding-top: 10px;"><input type="button" value="检查本地浏览器通知权限" onclick="getPermission()"></input></div>
+    <div class="dsc">
+      在没有集成SDK的情况下，可以使用JavaScript来检查本地通知权限，并测试浏览器是否支持通知。一旦集成了SDK并获取了网络通知权限，本地通知权限将自动跟随网络通知权限。。
+    </div>
+
+  </div>
+  <div class="test-warp">
+    <input id="title_1" type="text" placeholder="请输入本地通知标题">
+    <input id="data_1" type="text" placeholder="请输入本地通知内容，可复制上面蓝色示例">
+    <div id="msg_local_test">本地通知测试</div>
+  </div>
+
+</body>
+
+</html>
